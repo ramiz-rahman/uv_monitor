@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:uv_monitor/svg_widgets/sun.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen();
 
   @override
   Widget build(BuildContext context) {
-    final Widget sunIcon = SvgPicture.asset(
-      'assets/images/sun.svg',
-      semanticsLabel: 'A sun representing UV radiation',
-    );
-
     final Widget headline = Container(
       padding: EdgeInsets.only(top: 29.0, bottom: 51.0),
       child: Text(
@@ -52,7 +48,7 @@ class LoginScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          sunIcon,
+          SunSVG,
           headline,
           loginButton,
         ],
