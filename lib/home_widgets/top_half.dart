@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:uv_monitor/svg_widgets/shades.dart';
 import 'package:uv_monitor/home_widgets/current_datetime.dart';
 import 'package:uv_monitor/home_widgets/uv_index.dart';
+import 'package:uv_monitor/state_container.dart';
 
 class TopHalf extends StatelessWidget {
   @override
@@ -32,17 +33,29 @@ class _topContainer extends StatelessWidget {
 class _resultStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final rawData = StateContainer.of(context);
+    final uvData = rawData.uv_service;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
           child: ShadesSVG,
         ),
-        UVIndex(),
-        Container(
-          padding: EdgeInsets.only(top: 20),
-          child: CurrentDatetime(),
+        FutureBuilder(
+          future: uvData.future,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return UVIndex(
+                index: snapshot.data.uv,
+                datetime: snapshot.data.datetime,
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          },
         ),
       ],
     );

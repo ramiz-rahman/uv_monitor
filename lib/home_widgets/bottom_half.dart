@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:uv_monitor/home_widgets/button.dart';
 import 'package:uv_monitor/home_widgets/geolocation.dart';
+import 'package:uv_monitor/state_container.dart';
 
 class BottomHalf extends StatelessWidget {
   @override
@@ -33,6 +34,7 @@ class _Buttons extends StatelessWidget {
           Button(
             text: 'Refresh',
             color: Color(0xFF2B8700),
+            onPressed: StateContainer.of(context).refresh,
           ),
           Button(
             text: 'Logout',
