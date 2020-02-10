@@ -7,10 +7,13 @@ class Button extends StatelessWidget {
   Color color;
   Color splashColor;
   Color textColor = Colors.white;
+  var onPressed;
+
   Button(
       {Key key,
       @required this.text,
       @required this.color,
+      this.onPressed,
       this.splashColor,
       this.textColor})
       : assert(text != null),
@@ -27,9 +30,7 @@ class Button extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      onPressed: () {
-        print(this.text + " was pressed");
-      },
+      onPressed: () => this.onPressed(),
       child: Text(
         this.text,
         style: TextStyle(
